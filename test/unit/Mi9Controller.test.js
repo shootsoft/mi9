@@ -295,4 +295,17 @@ describe.only('Mi9Controller', function() {
     });
 
 
+    describe('json error test', function() {
+        it('should return 400 & error json', function (done) {
+          request(sails.hooks.http.app)
+            .post('/')
+            .send('{"bad": "json}')
+            .expect(400)
+            .expect({
+                        "error": "Could not decode request: JSON parsing failed"
+                    }, done);
+        });
+    });
+
+
 });
