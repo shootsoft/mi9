@@ -3,7 +3,10 @@ var bodyParser = require('body-parser')
 var app = express()
 
 app.get('/', function(req, res) {
-    res.send('Hello World!')
+    res.status(400)
+    res.send({
+        "error": "Could not decode request: JSON parsing failed"
+    })
 })
 
 app.post('/', bodyParser.json(), function(req, res) {
@@ -42,7 +45,7 @@ app.use(function(err, req, res, next) {
     })
 });
 
-var server = app.listen(80, function() {
+var server = app.listen(process.env.PORT || 3000, function() {
 
     var host = server.address().address
     var port = server.address().port
